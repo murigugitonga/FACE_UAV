@@ -1,0 +1,7 @@
+FROM python:3.10-slim
+WORKDIR /app
+RUN apt-get update && apt-get install -y libzmq5 && rm -rf /var/lib/apt/lists/*
+COPY telemetry/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY telemetry/ .
+ENTRYPOINT [ "python", "sensor_simulator.py" ]

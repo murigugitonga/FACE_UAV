@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-core
+  namespace: face_uav
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vanguard-core
+  template:
+    metadata:
+      labels: 
+        app: face-uav
+        mosa.segment: "PortableComponentSegment"
+    spec:
+      containers:
+      - name: core-engine
+        image: face/core:latest

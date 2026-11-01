@@ -1,0 +1,24 @@
+{
+  "name": "FACE_UAV DevEnvironment",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+//   "build": {
+//     "dockerfile": "Dockerfile"
+//   },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "dbeaumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
+      ]
+    }
+  },
+//   "forwardPorts": [8000, 5173, 6379],
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y libzmq3-dev libflatbuffers-compiler cmake build-essential"
+}
