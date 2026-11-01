@@ -14,7 +14,7 @@ The core objective is to evaluate how distributed edge systems retain situationa
 * **Transport Services (TSS):** ZeroMQ, Google Flatbuffers (`flatc`).
 * **Containerization & Deployment:** Docker (Multi-stage), Kubernetes (K8s manifests).
 
-## MOSA & FACE Capability Mappinh
+## MOSA & FACE Capability Mapping
 
 | FACE Architectural Segment | Project Module | Technical Function | 
 | :--- | :--- | :--- |
@@ -22,3 +22,47 @@ The core objective is to evaluate how distributed edge systems retain situationa
 | **Portable Component Segment (PCS)** | C++ Core Engine | Deterministic lock-free ingestion & out-of-order temporal fusion |
 | **Platform-Specific Services Segment (PSSS)** | Python Service | High-rate multi-sensor emulation & programmatic EW fault injection |
 | **Human-Machine Interface (HMI)** | React / Canvas UI | High-fidelity C2 tracking matrix & telemetry divergence rendering |
+
+## Deliverables & Progress Tracking
+
+- [x] **Phase 0: Architecture & Environment Setup**
+    - [x] Core stack definition & repo boilerplate setup
+    - [x] Containerization framework setup.
+    - [x] Github codespaces development container configuration.
+    - [x] Baseline project README and system specification brief.
+- [] **Phase 1: Binary Data Contract(TSS)**
+    - [] Write unified `schema\telemetry.fbs` Flatbuffers schema.
+    - [] Compile language bindings for C++, Python & Typescript.
+- [] **Phase 2: Telemetry & EW Fault Tolerance**
+    - [] Implement asynchronous multi-sensor generator (IMU @ 100Hz, GNSS @ 5Hz Visual Tracker @30Hz).
+    - [] Implement Gaussian noise & EW transport disruption controller (ZeroMQ publisher).
+- [] **Phase 3: High-Frequency Processing Engine (PCS)**
+    - [] Implement  C++ single-producer single-consumer (SPSC) lock-free ring buffer.
+    - [] Develop zero-copy ZMQ receiver thread.
+    - [] Build temporal out-of-order alignment engine & state fusion processor.
+
+- [] **Phase 4: Real-Time C2 Dashboard (HMI)**
+    - [] Build lightweight ZMQ-to-websocket bridge.
+    - [] Develop React 19 + Typescript real-time tactical canvas engine.
+    - [] Implement Ground Truth vs. Estimated Edge Trail comparative UI Overlay.
+
+- [] **Phase 5: Distributed System Verification**
+    - [] Execute Docker-Compose & Kubernetes cluster deployment tests.
+    - [] Benchmark fusion latency and memory footprint under severe simulated DDIL loss.
+
+## Firing this up in Github Codespaces
+
+```bash
+ # Verify build toolchain
+ g++ --version && flatc --version && cmake --version
+
+ # Build C++ Core Engine (Post-Phase 1-3)
+ mkdir -p core/build && cd core/build
+ cmake .. && make -j&(nproc)
+
+ # Launch Telemetry Generator
+ python3 telemetry/sensor_simulator.py
+
+ ```
+ 
+
