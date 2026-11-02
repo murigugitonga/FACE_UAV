@@ -1,0 +1,61 @@
+namespace ResilientNet.TSS;
+
+struct Vector3{
+    x: float;
+    y:float;
+    z:float;
+}
+
+enum SensorType: byte{
+    UNKNOWN = 0,
+    IMU = 1,
+    GNSS = 2,
+    VISUAL = 3,
+    TRUTH = 4
+}
+
+table IMUPayload{
+    acceleration: Vector3;
+    angular_velocity: Vector3;
+    temperature_c: float;
+}
+
+table GNSSPayload{
+    latitude: double;
+    longitude: double;
+    altitude: double;
+    velocity_ned: Vector3;
+    pdop: float;
+    satellites_tracked: ubyte;
+}
+
+table VisualTrackPayload{
+    target_id: uint;
+    relative_position: Vector3;
+    confidence: float;
+    is_occluded: bool;
+}
+
+// Union Wrapper for Polymorphic Sensor Streams
+
+union SensorData{
+    IMUPayload,
+    GNSSPayload,
+    VisualTrackPayload
+}
+
+// Top-level Master Telemetry Envelope
+
+table TelemetryMessage{
+    message_id: ulong;
+    entity_id: uint;
+    timestamp_ms: ulong;
+    sensor_type: SensorType;
+
+    // Polymorphic payload container matching the sensor_type tag
+
+    payload: SensorData;
+}
+
+// Designate TelemetryMessage as the entry point for serialization and verification.
+root_type TelemetryMessage;
